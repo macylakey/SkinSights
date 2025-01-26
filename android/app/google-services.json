@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "753646007909",
+    "project_id": "irvinehacks2025-6d767",
+    "storage_bucket": "irvinehacks2025-6d767.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753646007909:android:02905b8c6853c29656b88c",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhNdZL22AhGCl852_hzJ6MVJMxoxVgHQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
