@@ -274,10 +274,39 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Stack(
                             children: [
                               // Camera Preview
-                              Container(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: CameraPreview(_cameraController),
+                              GestureDetector(
+                                onTapDown: (TapDownDetails details) async {
+                                  if (_cameraController.value.isInitialized) {
+                                    final RenderBox box =
+                                        context.findRenderObject() as RenderBox;
+                                    final Offset offset = box.globalToLocal(
+                                        (details.globalPosition));
+                                    final Size size = box.size;
+
+                                    //tap to coord
+                                    final double dx = offset.dx / size.width;
+                                    final double dy = offset.dy / size.height;
+
+                                    try {
+                                      await _cameraController
+                                          .setFocusPoint(Offset(dx, dy));
+                                      await _cameraController
+                                          .setFocusMode(FocusMode.auto);
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content:
+                                                  Text('Focus error: $e')));
+                                    }
+                                  }
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  child: CameraPreview(_cameraController),
+                                ),
                               ),
                               CustomPaint(
                                 size: Size(
@@ -469,8 +498,7 @@ class ResultsPage extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          LoginPage(),
+                                      builder: (context) => LoginPage(),
                                     ));
                                 // Add logic here to handle adding to an existing folder
                               },
@@ -482,8 +510,7 @@ class ResultsPage extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          LoginPage(),
+                                      builder: (context) => LoginPage(),
                                     ));
                               },
                               child: const Text("Create New Folder"),
